@@ -1,6 +1,5 @@
 const { MongoClient } = require('mongodb');
-const fs = require('fs').promises;
-const path = require('path');
+
 const { pipeline } = require('stream/promises');
 const { createReadStream } = require('fs');
 const JSONStream = require('JSONStream');
@@ -24,7 +23,7 @@ class ProductUploader {
             this.collection = this.db.collection(COLLECTION_NAME);
             console.log('Connected to MongoDB successfully');
         } catch (error) {
-            console.error(`MongoDB connection error: ${error.message}`);
+            console.log(`MongoDB connection error: ${error.message}`);
             throw error;
         }
     }
@@ -50,13 +49,13 @@ class ProductUploader {
                     await this.collection.createIndex(index.key);
                     console.log(`Created index on '${Object.keys(index.key)[0]}'`);
                 } catch (error) {
-                    console.error(`Error creating index: ${error.message}`);
+                    console.log(`Error creating index: ${error.message}`);
                 }
             }
 
             console.log('\nIndex creation completed');
         } catch (error) {
-            console.error(`Error managing indexes: ${error.message}`);
+            console.log(`Error managing indexes: ${error.message}`);
         }
     }
 
@@ -163,7 +162,7 @@ class ProductUploader {
             await this.ensureIndexes();
 
         } catch (error) {
-            console.error(`Error uploading products: ${error.message}`);
+            console.log(`Error uploading products: ${error.message}`);
         } finally {
             await this.client.close();
             console.log('MongoDB connection closed');
@@ -177,7 +176,7 @@ async function main() {
         await uploader.connect();
         await uploader.uploadProducts();
     } catch (error) {
-        console.error(`Error in main: ${error.message}`);
+        console.log(`Error in main: ${error.message}`);
     }
 }
 

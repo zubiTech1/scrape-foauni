@@ -127,8 +127,8 @@ async function fetchAllProducts() {
         results.push(...fetched.filter(Boolean));
         console.log(`✅ Fetched ${Math.min(i + concurrency, allProducts.length)} of ${allProducts.length}`);
     }
-    fs.writeFileSync('all_product_details.json', JSON.stringify(results, null, 2), 'utf-8');
-    console.log(`🎉 Done! Saved ${results.length} products to all_product_details.json`);
+    fs.writeFileSync('products.json', JSON.stringify(results, null, 2), 'utf-8');
+    console.log(`🎉 Done! Saved ${results.length} products.json`);
 
 }
 
